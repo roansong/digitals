@@ -1,0 +1,58 @@
+\section{Methodology}
+In this section you should describe the method of the experiment.
+
+
+
+\subsection{Hardware}
+The experiments conducted in this report were performed on a computer with the following specifications:
+\begin{itemize}
+	\item CPU: i5-2500 (4 cores @ 3.3-3.7	GHz)
+	\item RAM: 8 GB DDR3
+	\item OS:  Ubuntu 15.04
+\end{itemize}
+
+\subsection{Introductory Experiments}
+To breed foster familiarity with Octave, a task was issued that involved generating a .wav file with a given method, and then creating one for comparison. The difference between the two functions being that the first one relies on a single call to rand() to generate multiple values, while the new method makes a call to rand() for each value in turn. A sample rate of 8000Hz was used, to decrease computation time. 
+
+The given implementation took 173ms to generate 1000s of 8000Hz white noise. The custom implementation took 64244ms. This new method is a handy 370 times slower than the original method. This speed-down is likely due to the overheads of calling the rand() function multiple times.
+
+The code for the custom implementation is shown below:
+
+\begin{Matlab}
+function whiten = createwhiten(s)
+  sample_rate = 8000;
+  whiten = zeros(s*sample_rate,1);
+  t = s*sample_rate
+  for i = 1:t
+    whiten(i) = rand();
+  end
+  
+  whiten = whiten*2-1;
+end
+\end{Matlab}
+
+
+\subsection{Correlation Implementation}
+The source code for the bespoke correlation solution is shown below.
+
+\begin{Matlab}
+function r = mycorr(x,y)
+	% readability >> succinctness
+	sx  = sum(x);
+	sy  = sum(y);
+	sxy = sum(x.*y);    % elementwise multiplication
+	sx2 = sum(x.^2);    % elementwise squares
+	sy2 = sum(y.^2);
+	n   = max(size(x)); % just in case we get some column/row vector mixups
+	num = sxy - sx*sy/n;
+	den = sqrt((sx2-(sx.^2)/n)*(sy2-(sy.^2)/n));
+	r = -2; % default, in case correlation could not be performed
+	if(den != 0)
+		r = num/den;
+	end
+end
+\end{Matlab}
+
+  
+\subsection{Experiment Procedure}
+Furthermore, include detail relating to the experiment itself: what did you do, in what order was this done, why was this done, etc.  What are you trying to prove / disprove?
