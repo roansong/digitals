@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.4.5)  5 APR 2017 01:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2017.4.5)  5 APR 2017 12:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -500,11 +500,54 @@ LaTeX Font Info:    Try loading font information for OT1+pcr on input line 21.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)) (./Body/Results.tex
-Overfull \hbox (5.49875pt too wide) in paragraph at lines 2--18
-[][] 
+)
+Underfull \hbox (badness 5050) in paragraph at lines 60--61
+[]\OT1/ptm/m/n/10 The sig-nals gen-er-ated were sim-ple sine waves, at
  []
 
+<Figures/overview.pdf, id=57, 614.295pt x 794.97pt>
+File: Figures/overview.pdf Graphic file (type pdf)
+ <use Figures/overview.pdf>
+Package pdftex.def Info: Figures/overview.pdf used on input line 81.
+(pdftex.def)             Requested size: 245.71364pt x 317.98236pt.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+
+]
+<Figures/lofreq.pdf, id=103, 614.295pt x 794.97pt>
+File: Figures/lofreq.pdf Graphic file (type pdf)
+ <use Figures/lofreq.pdf>
+Package pdftex.def Info: Figures/lofreq.pdf used on input line 89.
+(pdftex.def)             Requested size: 245.71364pt x 317.98236pt.
+
+<Figures/hifreq.pdf, id=104, 614.295pt x 794.97pt>
+File: Figures/hifreq.pdf Graphic file (type pdf)
+ <use Figures/hifreq.pdf>
+Package pdftex.def Info: Figures/hifreq.pdf used on input line 96.
+(pdftex.def)             Requested size: 245.71364pt x 317.98236pt.
+
+<Figures/hifreqhisample.pdf, id=105, 614.295pt x 794.97pt>
+File: Figures/hifreqhisample.pdf Graphic file (type pdf)
+
+<use Figures/hifreqhisample.pdf>
+Package pdftex.def Info: Figures/hifreqhisample.pdf used on input line 103.
+(pdftex.def)             Requested size: 245.71364pt x 317.98236pt.
+
+<Figures/absvals.pdf, id=106, 614.295pt x 794.97pt>
+File: Figures/absvals.pdf Graphic file (type pdf)
+ <use Figures/absvals.pdf>
+Package pdftex.def Info: Figures/absvals.pdf used on input line 110.
+(pdftex.def)             Requested size: 245.71364pt x 317.98236pt.
+)
+(./Body/Results.tex
+Underfull \hbox (badness 1484) in paragraph at lines 4--5
+[]\OT1/ptm/m/n/10 It ap-pears that the cus-tom cor-re-la-tion im-ple-men-ta-tio
+n
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 9.
 ) (./Body/Conclusion.tex) (./Report.bbl
 
 ! LaTeX Error: Something's wrong--perhaps a missing \item.
@@ -531,26 +574,24 @@ Before submitting the final camera ready copy, remember to:
  process uses the appropriate paper size.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 35.
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
-
-]
+[2 <./Figures/overview.pdf>] [3 <./Figures/lofreq.pdf> <./Figures/hifreq.pdf>]
+[4 <./Figures/hifreqhisample.pdf> <./Figures/absvals.pdf>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 35.
  (./Report.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 35.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 35.
 Package rerunfilecheck Info: File `Report.out' has not changed.
-(rerunfilecheck)             Checksum: 4F67385DDACA5695290D0F03B08EF27C;532.
+(rerunfilecheck)             Checksum: 4BA9DC41B0B14D9D769887B2F84A2C16;794.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 35.
  ) 
 Here is how much of TeX's memory you used:
- 8530 strings out of 494429
- 129326 string characters out of 6168620
- 267848 words of memory out of 5000000
- 11762 multiletter control sequences out of 15000+600000
- 37069 words of font info for 73 fonts, out of 8000000 for 9000
+ 8603 strings out of 494429
+ 130410 string characters out of 6168620
+ 279427 words of memory out of 5000000
+ 11804 multiletter control sequences out of 15000+600000
+ 40783 words of font info for 79 fonts, out of 8000000 for 9000
  308 hyphenation exceptions out of 8191
- 31i,9n,40p,454b,1652s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 30i,9n,40p,521b,1652s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/f
@@ -559,10 +600,10 @@ w/courier/ucrro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb
 8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Report.pdf (1 page, 86356 bytes).
+Output written on Report.pdf (4 pages, 107106 bytes).
 PDF statistics:
- 120 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
- 38 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 185 PDF objects out of 1000 (max. 8388607)
+ 164 compressed objects within 2 object streams
+ 57 named destinations out of 1000 (max. 500000)
+ 122 words of extra memory for PDF output out of 10000 (max. 10000000)
 

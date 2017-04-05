@@ -1,4 +1,11 @@
 \section{Results}
+
+\subsection{Custom Correlation}
+It appears that the custom correlation implementation performs faster than the native Octave algorithm. The average speedup varies between \~16 on smaller vectors to just above 1.2 on very long (10\textsuperscript{8}) vectors.
+
+
+\begin{table}[h]
+\centering
 \begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{Sample Size} & \textbf{mycorr (ms)} & \textbf{corr (ms)} & \textbf{Speed-up} \\
@@ -14,13 +21,30 @@
 1344.2 &  1042.5 &  1.2895e+00 &  100000000 \\ \hline
 
 
-\end{tabular}
 
-%2.4128e-03   3.7909e-04   6.3648e+00   1.0000e+01
-%2.1110e-03   1.3089e-04   1.6128e+01   1.0000e+02
-%2.1570e-03   1.5306e-04   1.4092e+01   1.0000e+03
-%2.4791e-03   2.6298e-04   9.4270e+00   1.0000e+04
-%3.7451e-03   1.3590e-03   2.7558e+00   1.0000e+05
-%2.1465e-02   1.1776e-02   1.8228e+00   1.0000e+06
-%1.4040e-01   1.0461e-01   1.3422e+00   1.0000e+07
-%1.3442e+00   1.0425e+00   1.2895e+00   1.0000e+08
+\end{tabular}
+\caption{Table comparing two correlation implementations}
+\label{tab:comparison}
+\end{table}
+
+
+\subsection{Effects of Time Shifts on Correlation}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+100 samples & 1 rad/s & 2 rad/s & 10 rad/s \\ \hline
+shift by 1  & 0.989   & 0.991   & 0.802    \\ \hline        
+shift by 10 & 0.494	  & 0.294   & 0.998    \\ \hline
+\hline
+1000 samples & 1 rad/s & 2 rad/s & 10 rad/s \\ \hline
+shift by 1  & 1.000   & 1.000   & 0.990   \\ \hline        
+shift by 10 & 1.000	  & 0.999   & 0.479    \\ \hline
+\hline
+10000 samples & 1 rad/s & 2 rad/s & 10 rad/s \\ \hline
+shift by 1  & 1.000   & 1.000   & 1.000    \\ \hline        
+shift by 10 & 1.000	  & 1.000   & 1.000    \\ \hline
+
+\end{tabular}
+\
+\end{table}

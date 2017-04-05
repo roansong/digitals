@@ -2,8 +2,11 @@
 \BOOKMARK [1][-]{section.2}{II Methodology}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{II-A Hardware}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{II-B Introductory Experiments}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{II-C Correlation Implementation}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.4}{II-D Experiment Procedure}{section.2}% 6
-\BOOKMARK [1][-]{section.3}{III Results}{}% 7
-\BOOKMARK [1][-]{section.4}{IV Conclusion}{}% 8
-\BOOKMARK [1][-]{section*.1}{References}{}% 9
+\BOOKMARK [2][-]{subsection.2.3}{II-C Custom Correlation Implementation}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{II-D Comparing Signals Shifted in Time}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{II-E Experiment Procedure}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{III Results}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{III-A Custom Correlation}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{III-B Effects of Time Shifts on Correlation}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{IV Conclusion}{}% 11
+\BOOKMARK [1][-]{section*.1}{References}{}% 12

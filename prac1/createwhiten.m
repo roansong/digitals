@@ -1,19 +1,11 @@
-function whiten = createwhiten(s)
-
-  sample_rate = 8000;
-  
-  whiten = zeros(s*sample_rate,1);
-  
-  t = s*sample_rate
-  
-
-  for i = 1:t
-    whiten(i) = rand();
-  
+function whiten = createwhiten(time)
+  sample_rate = 8000;  
+  whiten = zeros(time*sample_rate,1); 
+  samples = time*sample_rate
+  for i = 1:samples
+    whiten(i) = rand(); 
   end
-
-  whiten = whiten*2-1;
-
+  whiten = whiten*2-1; %fit into .wav bounds
 end
 
 
