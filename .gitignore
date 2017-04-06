@@ -3,4 +3,4 @@ octave-workspace
 *.aux
 *.log
 *.out
-*.gz
+*.synctex.gz
