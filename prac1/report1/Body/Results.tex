@@ -1,4 +1,8 @@
-\section{Results}
+\section{Results \& Discussion}
+
+\subsection{Introductory Experiments}
+
+The given implementation took 173ms to generate 1000s of 8000Hz white noise. The custom implementation took 64244ms. This new method is a handy 370 times slower than the native method. This speed-down is likely due to the overheads of calling the rand() function multiple times.
 
 \subsection{Custom Correlation}
 It appears that the custom correlation implementation performs faster than the native Octave algorithm. The average speedup varies between \~16 on smaller vectors to just above 1.2 on very long (10\textsuperscript{8}) vectors.
@@ -8,17 +12,17 @@ It appears that the custom correlation implementation performs faster than the n
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
-\textbf{Sample Size} & \textbf{mycorr (ms)} & \textbf{corr (ms)} & \textbf{Speed-up} \\
+\textbf{mycorr (ms)} & \textbf{corr (ms)} & \textbf{Speed-up} & \textbf{Sample Size}  \\
 \hline
 
-2.4128 &  3.7909 &  6.3648e+00 &  10 \\ \hline
-2.1110 &  1.3089 &  1.6128e+01 &  100 \\ \hline
-2.1570 &  1.5306 &  1.4092e+01 &  1000 \\ \hline
-2.4791 &  2.6298 &  9.4270e+00 &  10000 \\ \hline
-3.7451 &  1.3590 &  2.7558e+00 &  100000 \\ \hline
-21.465 &  11.776 &  1.8228e+00 &  1000000 \\ \hline
-140.40 &  104.61 &  1.3422e+00 &  10000000 \\ \hline
-1344.2 &  1042.5 &  1.2895e+00 &  100000000 \\ \hline
+2.4128 &  3.7909 &  6.364 &  10 \\ \hline
+2.1110 &  1.3089 &  16.128 &  100 \\ \hline
+2.1570 &  1.5306 &  14.092 &  1000 \\ \hline
+2.4791 &  2.6298 &  9.427 &  10000 \\ \hline
+3.7451 &  1.3590 &  2.756 &  100000 \\ \hline
+21.465 &  11.776 &  1.823 &  1000000 \\ \hline
+140.40 &  104.61 &  1.342 &  10000000 \\ \hline
+1344.2 &  1042.5 &  1.290 &  100000000 \\ \hline
 
 
 
@@ -29,22 +33,30 @@ It appears that the custom correlation implementation performs faster than the n
 
 
 \subsection{Effects of Time Shifts on Correlation}
+
+Table ~\ref{tab:corr} shows Pearson's Correlation Coefficient for each signal, at each frequency, with a varying shift, for each sample rate.
+
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
-100 samples & 1 rad/s & 2 rad/s & 10 rad/s \\ \hline
-shift by 1  & 0.989   & 0.991   & 0.802    \\ \hline        
-shift by 10 & 0.494	  & 0.294   & 0.998    \\ \hline
+\textbf{100 samples} & \textbf{1 rad/s} & \textbf{2 rad/s} & \textbf{10 rad/s} \\ \hline
+\textbf{shift by 1}  & 0.989   & 0.991   & 0.802    \\ \hline        
+\textbf{shift by 10} & 0.494	  & 0.294   & 0.998    \\ \hline
 \hline
-1000 samples & 1 rad/s & 2 rad/s & 10 rad/s \\ \hline
-shift by 1  & 1.000   & 1.000   & 0.990   \\ \hline        
-shift by 10 & 1.000	  & 0.999   & 0.479    \\ \hline
+\textbf{1000 samples} & \textbf{1 rad/s} & \textbf{2 rad/s} & \textbf{10 rad/s} \\ \hline
+\textbf{shift by 1}  & 1.000   & 1.000   & 0.990   \\ \hline        
+\textbf{shift by 10} & 1.000	  & 0.999   & 0.479    \\ \hline
 \hline
-10000 samples & 1 rad/s & 2 rad/s & 10 rad/s \\ \hline
-shift by 1  & 1.000   & 1.000   & 1.000    \\ \hline        
-shift by 10 & 1.000	  & 1.000   & 1.000    \\ \hline
+\textbf{10000 samples} & \textbf{1 rad/s} & \textbf{2 rad/s} & \textbf{10 rad/s} \\ \hline
+\textbf{shift by 1}  & 1.000   & 1.000   & 1.000    \\ \hline        
+\textbf{shift by 10} & 1.000	  & 1.000   & 1.000    \\ \hline
 
 \end{tabular}
-\
+\caption{Correlation on various shifted signals}
+\label{tab:corr}
 \end{table}
+
+
+Experiments show that a signal correlated with a time-shifted version of itself will have an increasingly low Pearson's Correlation Coefficient. In the case of an odd, periodic signal, shifting by half its period will result in a correlation of r = -1, and r=1 if the signal is shifted by an exact multiple of the signal's period. Higher frequency signals are more susceptible to sample shifts, as each sample constitutes a higher proportion of a single period of the waveform. Signals with a higher sample rate are less susceptible to sample shifts, given that they have more samples constituting a single period of the waveform. 
+I further infer that a shift in seconds instead of samples would provide the same results for each frequency, and ignore the sample rates, as the values at each point would be the same given that the point was defined for each signal.

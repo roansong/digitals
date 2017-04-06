@@ -1,1 +1,6 @@
 reminder.txt
+octave-workspace
+*.aux
+*.log
+*.out
+*.gz

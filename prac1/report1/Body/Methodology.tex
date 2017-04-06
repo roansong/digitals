@@ -1,7 +1,4 @@
 \section{Methodology}
-In this section you should describe the method of the experiment.
-
-
 
 \subsection{Hardware}
 The experiments conducted in this report were performed on a computer with the following specifications:
@@ -12,9 +9,8 @@ The experiments conducted in this report were performed on a computer with the f
 \end{itemize}
 
 \subsection{Introductory Experiments}
-To breed foster familiarity with Octave, a task was issued that involved generating a .wav file with a given method, and then creating one for comparison. The difference between the two functions being that the first one relies on a single call to rand() to generate multiple values, while the new method makes a call to rand() for each value in turn. A sample rate of 8000Hz was used, to decrease computation time. 
+To foster familiarity with Octave, a task was issued that involved generating a .wav file with a given method, and then creating one for comparison. The difference between the two functions being that the first one relies on a single call to rand() to generate multiple values, while the new method makes a call to rand() for each value in turn. A sample rate of 8000Hz was used, to decrease computation time. 
 
-The given implementation took 173ms to generate 1000s of 8000Hz white noise. The custom implementation took 64244ms. This new method is a handy 370 times slower than the original method. This speed-down is likely due to the overheads of calling the rand() function multiple times.
 
 The code for the custom implementation is shown below:
 
@@ -31,9 +27,10 @@ function whiten = createwhiten(time)
 end
 \end{Matlab}
 
+It is unlikely that the custom implementation will be able to perform better than the likely highly optimized native function.
 
 \subsection{Custom Correlation Implementation}
-The source code for the bespoke correlation solution is shown below.
+The source code for the bespoke correlation solution is shown below. I would expect this code to run more quickly than the native implementation at least for some cases, as it relies on basic arithmetic principles, and offers no additional functionality.
 
 \begin{Matlab}
 function r = mycorr(x,y)
@@ -57,13 +54,18 @@ end
 
 Firstly, a signal must be generated, and then compared against a shifted version of itself. This can easily be done by generating a signal and then using a small 'window' of the signal compared to a window shifted slightly to either side, i.e. if the signal x is comprised of 100 samples, one signal could be x[1:50] and the shifted version 20 samples ahead, at x[21:70]. For all instances, I used a window size of 50 samples.
 
-The signals generated were simple sine waves, at frequencies of 1rad/s, 2rad/s, and 10rad/s. All of the signals generated range from -pi to pi (shown in Figure~\ref{fig:overview}). 100, 1000, and 10000 samples were used for each frequency.  The choice of windows are [1:50] (the first 50 samples of the signal), [2:51] (a shift by 1), and [11:61] (a shift by 10). 
+The signals generated were sine waves, at frequencies of 1rad/s, 2rad/s, and 10rad/s. All of the signals generated range from -pi to pi. 100, 1000, and 10000 samples were used for each frequency.  The choice of windows are [1:50] (the first 50 samples of the signal), [2:51] (a shift by 1), and [11:61] (a shift by 10). Figure~\ref{fig:absvals} shows the absolute value of the differences between shifted signals at different sample rates, indicating that higher sample rates have smaller differences between nearby samples than lower sample rates.
 
 These values were chosen to cover a wide range of signals, and to avoid jumping to conclusions.
 
-Figure~\ref{fig:windowslo100} shows a low frequency, low sample rate signal viewed through the different windows. Figure~\ref{fig:windowshi100} shows a high frequency, low sample rate signal viewed through the different windows. Figure~\ref{fig:windows10000} shows a high frequency, high sample rate signal viewed through the different windows. Figure~\ref{fig:absvals} shows the absolute value of the differences between shifted signals at different sample rates.
+It is hypothesised in this report that correlating a sinusoid with a time-shifted version will have the following effect on the Pearson's Correlation Coefficient:
 
-Judging from these figures the inference can be drawn that low sample rate signals will be more heavily affected by a shift in samples, as there is a larger gap of information between each sample. 
+\begin{itemize}
+	\item Sinusoids are periodic, so shifting by one period will give the same correlation value
+	\item Sinusoids are odd, so after half a period, the correlation will be at a minimum. It should be that r=-1 at this point, as the signals are inverses.
+	\item The correlation coefficient will smoothly vary between 1 and -1 as the signal is shifted.
+	\item Higher sample rate signals will be less susceptible to sample-based shifts but equally susceptible to time-based shifts.
+\end{itemize}
 
 The correlation between each signal was calculated using the native corr function as follows:
 
@@ -76,43 +78,17 @@ r = corr(x1(w1),x1(w2));
 disp(r);
 \end{Matlab}
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.4]{Figures/overview}
-\caption{Overview of signals}
-\label{fig:overview}
-\end{figure}
 
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{Figures/lofreq}
-\caption{Overview of signals}
+\caption{Different windows of the same signal}
 \label{fig:windowslo100}
-\end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.4]{Figures/hifreq}
-\caption{Overview of signals}
-\label{fig:windowshi100}
-\end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.4]{Figures/hifreqhisample}
-\caption{Overview of signals}
-\label{fig:windows10000}
-\end{figure}
 
-\begin{figure}
-\centering
 \includegraphics[scale=0.4]{Figures/absvals}
-\caption{Overview of signals}
+\caption{Absolute differences between a signal and shifted counterpart, according to sample rate}
 \label{fig:absvals}
 \end{figure}
-
-
-
-\subsection{Experiment Procedure}
-Furthermore, include detail relating to the experiment itself: what did you do, in what order was this done, why was this done, etc.  What are you trying to prove / disprove?
