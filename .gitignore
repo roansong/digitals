@@ -4,3 +4,6 @@ octave-workspace
 *.log
 *.out
 *.synctex.gz
+*.zip
+*.gz
+prac2/srctest/**
