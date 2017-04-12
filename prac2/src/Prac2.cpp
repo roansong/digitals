@@ -18,8 +18,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
 //==============================================================================
 
+
+
+
 #include "Prac2.h"
 #define MASK_SIZE 9
+#define INPUT_FILE "Data/fly.jpg"
+#define OUTPUT_FILE "Data/fly9x9v2.jpg"
 //------------------------------------------------------------------------------
 
 // This is each thread's "main" function.  It receives a unique ID
@@ -139,7 +144,7 @@ int main(int argc, char** argv){
   pthread_mutex_init(&Mutex, 0);
 
   // Read the input image
-  if(!Input.Read("Data/fly.jpg")){
+  if(!Input.Read(INPUT_FILE)){
     printf("Cannot read image\n");
     return -1;
   }
@@ -159,7 +164,7 @@ int main(int argc, char** argv){
   // printf("Filling mask for each pixel\n");
 
   printf("Input Height: %d\nInput Width: %d\n",Input.Height,Input.Width );
-  printf("Mask size: %d\n",sizeof(mask)/sizeof(mask[0]) );
+  printf("Mask size: %d (%d per pixel)\n",sizeof(mask)/sizeof(mask[0]),MASK_SIZE*MASK_SIZE );
 
   tic();
 
@@ -238,7 +243,7 @@ int main(int argc, char** argv){
   printf("Time taken for golden measure to run = %lg ms\n", toc()/1e-3);
 
   // Write the output image
-  if(!Output.Write("Data/output.jpg")){
+  if(!Output.Write(OUTPUT_FILE)){
     printf("Cannot write image\n");
     return -3;
   }

@@ -1,0 +1,20 @@
+GOLDEN MEASURE:
+=============================
+
+Filename: small.jpg
+Input Height: 304
+Input Width: 300
+Mask size: 243 (81 per pixel)
+Time = 4222.51 ms
+
+Filename: fly.jpg
+Input Height: 1024
+Input Width: 821
+Mask size: 243 (81 per pixel)
+Time = 54547.8 ms
+
+Filename: greatwall.jpg
+Input Height: 2560
+Input Width: 1920
+Mask size: 243
+Time = 299951 ms

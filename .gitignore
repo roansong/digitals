@@ -6,4 +6,5 @@ octave-workspace
 *.synctex.gz
 *.zip
 *.gz
+*.jpg
 prac2/srctest/**
