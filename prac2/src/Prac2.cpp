@@ -42,7 +42,8 @@ void* Thread_Main(void* Parameter){
 
 
 
-int* bubbleSort(int* arr, int length)
+
+int* bubbleSortOld(int* arr, int length)
 {
   int n = length;
 
@@ -70,26 +71,60 @@ int* bubbleSort(int* arr, int length)
 }
 
 
-
-
-int medFilter(int* mask, int length)
+void bubbleSort(int * arr, int length, JPEG& Output,int y, int x)
 {
-  // printf("Bubble Sort\n");
+  int out[3] = {0};
+  int n = length;
+  bool swap = 1;
+  int temp;
+  while(swap == 1)
+  {
+    swap = 0;
+    for(int i =3; i < n; i++)
+    {
+      if(arr[i-3] > arr[i])
+      {
+        temp = arr[i-3];
+        arr[i-3] = arr[i];
+        arr[i] = temp;
+        swap = 1;
+      }
+    }
+    n = n-1;
+  }
 
+  temp = (int)length/2;
+  Output.Rows[y][x] = arr[temp-1];
+  Output.Rows[y][x+1] = arr[temp];
+  Output.Rows[y][x+2] = arr[temp+1];
 
-  mask = bubbleSort(mask, length);
-
-
-  // printf("[");
-  // for(int i = 0; i < MASK_SIZE*MASK_SIZE; i++){
-    
-  //   printf("%d,",mask[i]);
-  // }
-  // printf("]\n");
-
-
-  return mask[(int)length/2];
+  return;
 }
+
+
+
+
+
+// int medFilter(int& mask, int length,JPEG& Output)
+// {
+//   // printf("Bubble Sort\n");
+
+
+//   bubbleSort(*mask, length, Output);
+
+
+//   // printf("[");
+//   // for(int i = 0; i < MASK_SIZE*MASK_SIZE; i++){
+    
+//   //   printf("%d,",mask[i]);
+//   // }
+//   // printf("]\n");
+
+//   // printf("%d\n",Output.Rows[0][0] );
+
+//   return 0;
+//   return mask[(int)length/2];
+// }
 
 
 
@@ -97,7 +132,8 @@ int main(int argc, char** argv){
   int j;
   int size = MASK_SIZE;
   int side = (int)(size-1)/2;
-  int mask[size*size]; // each pixel has 3 components
+
+
   // Initialise everything that requires initialisation
   tic();
   pthread_mutex_init(&Mutex, 0);
@@ -108,46 +144,80 @@ int main(int argc, char** argv){
     return -1;
   }
 
+  int mask[size*size*Input.Components] = {0}; // each pixel has 3 components
+
+  printf("[");
+            for(int i = 0; i < MASK_SIZE*MASK_SIZE*Input.Components; i++){
+              
+              printf("%d,",mask[i]);
+            }
+            printf("]\n");
+
   // Allocated RAM for the output image
   if(!Output.Allocate(Input.Width, Input.Height, Input.Components)) return -2;
 
-  // This is example code of how to copy image files ----------------------------
   // printf("Filling mask for each pixel\n");
 
   printf("Input Height: %d\nInput Width: %d\n",Input.Height,Input.Width );
+  printf("Mask size: %d\n",sizeof(mask)/sizeof(mask[0]) );
 
   tic();
-  int x,y,b,a,yind,xind,median;
-  for(y = 0; y < Input.Height; y++){
-    // printf("y: %d\n",y);
-    for(x = 0; x < Input.Width*Input.Components;x++){
-        // printf("x: %d\n",x);
-        // printf("%d\n",Input.Components);
-        
-          
-        for(b = -side; b <= side; b++){
-          for(a = -side; a <= side; a++){
-            yind = y+b;
-            xind = x+a*Input.Components;
-            // printf("yind: %d\n",yind);
-            // printf("b: %d\n",b );
-            if((yind < 0)||(xind < 0)||(yind >= Input.Height)||(xind >= Input.Width*Input.Components))
-              mask[(b+side)*size + a+side] = Input.Rows[y][x];
-              // mask[(b+side)*size + a+side] = 0;
-            else
-              mask[(b+side)*size + a+side] = Input.Rows[yind][xind];
+
+  int x,y,r,b,a,yind,xind,median;
+  for(y = 0; y < Input.Height; y++)
+  {
+    for(x = 0; x < Input.Width*Input.Components; x+=Input.Components)
+    {
+
+      int mask[size*size*Input.Components] = {0};
+
+      // printf("x: %d; y: %d\n",x,y );
+
+      // run for each color
+      for(r = 0; r < Input.Components; r++)
+      {
+        for(b = y-side; b <= y+side; b++)
+        {
+          for(a = x-(side*Input.Components)+r; a <= x+(side*Input.Components)+r; a += Input.Components)
+          {
+              // printf("x: %d; y: %d; a: %d; b: %d; r: %d; size: %d; side: %d; Input: %d\n",x,y,a,b,r,size,side,Input.Rows[y][x+r]);
+
+              // printf("[");
+              // for(int i = 0; i < MASK_SIZE*MASK_SIZE*Input.Components; i++){
+                
+              //   printf("%d,",mask[i]);
+              // }
+              // printf("]\n");
+
+              if(a<0)
+                mask[(b+side-y)*size*Input.Components+a+Input.Components-x]=Input.Rows[y][x+r];
+              else if(b<0)
+                mask[(b+side-y)*size*Input.Components+a+Input.Components-x]=Input.Rows[y][x+r];
+              else if(a>=Input.Width*Input.Components)
+                mask[(b+side-y)*size*Input.Components+a+Input.Components-x]=Input.Rows[y][x+r];
+              else if(b>=Input.Height)
+                mask[(b+side-y)*size*Input.Components+a+Input.Components-x]=Input.Rows[y][x+r];
+              else
+                mask[(b+side-y)*size*Input.Components+a+Input.Components-x]=Input.Rows[b][a];
+              // printf("[");
+              // for(int i = 0; i < MASK_SIZE*MASK_SIZE*Input.Components; i++){
+                
+              //   printf("%d,",mask[i]);
+              // }
+              // printf("]\n");
           }
-
-        median = medFilter(mask,sizeof(mask)/sizeof(mask[0]));
-        Output.Rows[y][x] = median;
-        // printf("Median: %d\n",median);
-
+          
         }
-        
-        // Output.Rows[y][x+r] = medFilter(mask[r]);
+          
+      }
+
+      bubbleSort(mask,sizeof(mask)/sizeof(mask[0]),Output,y,x);
+
+      // median = medFilter(mask,sizeof(mask)/sizeof(mask[0]),Output);
 
     }
   }
+
   printf("Time = %lg ms\n", (double)toc()/1e-3);
   
   printf("End of example code...\n\n");
@@ -168,7 +238,7 @@ int main(int argc, char** argv){
   printf("Time taken for golden measure to run = %lg ms\n", toc()/1e-3);
 
   // Write the output image
-  if(!Output.Write("Data/fly9x9.jpg")){
+  if(!Output.Write("Data/output.jpg")){
     printf("Cannot write image\n");
     return -3;
   }
