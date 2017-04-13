@@ -1,0 +1,56 @@
+\section{Results \& Discussion}
+
+\subsection{Golden Measure}
+
+The Golden Measure is the most basic sequential implementation of the desired application, with correct and consistent results required for the implementation to be considered successful.
+
+\subsubsection{Median Filter}
+The median filter algorithm performed as expected; removing noise from each image and emphasising the edges present within each image. Increasing the window size led to a more pronounced effect.
+
+
+\subsubsection{Performance}
+The performance of the sequential implementation left much to be desired, with the largest test image taking \~5 minutes to process.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Filename} & \textbf{Size [pixels]} & \textbf{Time Taken [s]} \\
+\hline
+
+small.jpg     &  91200   &  4.05051 \\ \hline
+fly.jpg       &  840704  &  51.1478 \\ \hline
+greatwall.jpg &  4915200 &  299.951 \\ \hline
+
+\end{tabular}
+\caption{Sequential Performance on Test Images}
+\label{tab:comparison}
+\end{table}
+
+
+\subsection{Parallel Implementation}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Filename} & \textbf{Size [pixels]} & \textbf{Thread Count} & \textbf{Time Taken [s]} & \textbf{Speed-up}\\
+\hline
+
+small.jpg     &  91200   &  2 & 2.263& 1.789\\ \hline
+small.jpg     &  91200   &  4 & 1.170& 3.462\\ \hline
+small.jpg     &  91200   &  8 & 1.1151&3.632\\ \hline
+small.jpg     &  91200   &  16& 1.104 &3.668 \\ \hline
+fly.jpg       &  840704  &  2 & 26.225 &1.952\\ \hline
+fly.jpg       &  840704  &  4 & 14.102 &3.629\\ \hline
+fly.jpg       &  840704  &  8 & 14.072&3.637\\ \hline
+fly.jpg       &  840704  &  16& 13.913&3.677 \\ \hline
+greatwall.jpg &  4915200 &  2 & 144.840&2.071\\ \hline
+greatwall.jpg &  4915200 &  4 & 77.575&3.866\\ \hline
+greatwall.jpg &  4915200 &  8 & 76.203&3.936\\ \hline
+greatwall.jpg &  4915200 &  16& 75.965&3.949 \\ \hline
+
+\end{tabular}
+\caption{Multi-Threaded Performance on Test Images}
+\label{tab:comparison}
+\end{table}
