@@ -77,6 +77,7 @@ int main(int argc, char** argv){
  for(j = 0; j < Thread_Count; j++){
   Thread_ID[j] = j;
   pthread_create(Thread+j, 0, Thread_Main, Thread_ID+j);
+  
  }
 
  // Printing stuff is a critical section...
