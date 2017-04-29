@@ -8,3 +8,6 @@ octave-workspace
 *.gz
 *.jpg
 prac2/srctest/**
+*.bbl
+*.blg
+*.tks
