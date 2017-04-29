@@ -10,4 +10,5 @@ octave-workspace
 prac2/srctest/**
 *.bbl
 *.blg
+*.dvi
 *.tks
