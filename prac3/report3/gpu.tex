@@ -1,0 +1,36 @@
+\begin{OpenCL}
+# Code provided by the 2017 EEE4084F OpenCL Workshop
+# Memory buffers are created
+a_nvidia_buffer = pyopencl.Buffer(nvidia_context,
+                                 flags=pyopencl.mem_flags.READ_ONLY, 
+                                 size=a.nbytes)
+b_nvidia_buffer = pyopencl.Buffer(nvidia_context, 
+                                 flags=pyopencl.mem_flags.READ_ONLY, 
+                                 size=b.nbytes)
+c_nvidia_buffer = pyopencl.Buffer(nvidia_context, 
+                                 flags=pyopencl.mem_flags.WRITE_ONLY, 
+                                 size=c.nbytes)
+# Command Queue
+nvidia_queue = pyopencl.CommandQueue(nvidia_context)
+def run_gpu_program():
+    #copying data onto CPU
+    pyopencl.enqueue_copy(nvidia_queue,
+                          src=a,
+                          dest=a_nvidia_buffer)
+    pyopencl.enqueue_copy(nvidia_queue,
+                          src=b,
+                          dest=b_nvidia_buffer)
+    
+    #running program
+    kernel_arguments = (a_nvidia_buffer,b_nvidia_buffer,c_nvidia_buffer) 
+    nvidia_program.sum(nvidia_queue,
+                       a.shape, #global size
+                       None, #local size
+                       *kernel_arguments)
+
+    #copying data off CPU
+    copy_off_event = pyopencl.enqueue_copy(nvidia_queue,
+                                           src=c_nvidia_buffer,
+                                           dest=c)
+    copy_off_event.wait()
+\end{OpenCL}

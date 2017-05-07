@@ -1,5 +1,2 @@
 \section{Introduction}
-
-Parallelisation of applications through the division of labour amongst static threads is a forward-looking approach to improving application performance. Applications comprised of multiple similar instructions operating on different sets of data (SISD systems) can allocate their resources amongst a set of static threads; each of which can carry out the instructions on their local resources.\\
-
-The application used in this report is a median filter - a method to remove speckled noise from datasets by setting each pixel of an image to the median of its surrounding pixel values. It involves highly independent data operations, and is thus well-suited to parallelisation.
+Open Computing Language (OpenCL) is a computing standard that allows portable implementation of programs across different computing platforms. Different platforms are more suited to different applications, and so this report aims to analyse the difference in performance between an Intel CPU and an NVIDIA GPU when faced with the same tasks.

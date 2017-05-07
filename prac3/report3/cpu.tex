@@ -1,0 +1,36 @@
+\begin{OpenCL}
+# Code provided by the 2017 EEE4084F OpenCL Workshop
+# Memory buffers are created
+a_intel_buffer = pyopencl.Buffer(intel_context,
+                                 flags=pyopencl.mem_flags.READ_ONLY, 
+                                 size=a.nbytes)
+b_intel_buffer = pyopencl.Buffer(intel_context, 
+                                 flags=pyopencl.mem_flags.READ_ONLY, 
+                                 size=b.nbytes)
+c_intel_buffer = pyopencl.Buffer(intel_context, 
+                                 flags=pyopencl.mem_flags.WRITE_ONLY, 
+                                 size=c.nbytes)
+# Command Queue
+intel_queue = pyopencl.CommandQueue(intel_context)
+def run_cpu_program():
+    #copying data onto CPU
+    pyopencl.enqueue_copy(intel_queue,
+                          src=a,
+                          dest=a_intel_buffer)
+    pyopencl.enqueue_copy(intel_queue,
+                          src=b,
+                          dest=b_intel_buffer)
+    
+    #running program
+    kernel_arguments = (a_intel_buffer,b_intel_buffer,c_intel_buffer) 
+    intel_program.sum(intel_queue,
+                       a.shape, #global size
+                       None, #local size
+                       *kernel_arguments)
+
+    #copying data off CPU
+    copy_off_event = pyopencl.enqueue_copy(intel_queue,
+                                           src=c_intel_buffer,
+                                           dest=c)
+    copy_off_event.wait()
+\end{OpenCL}
